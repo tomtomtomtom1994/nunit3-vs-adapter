@@ -93,6 +93,7 @@ namespace NUnit.VisualStudio.TestAdapter
 
         int ConsoleOut { get; }
         bool StopOnError { get; }
+        string ReportWriter { get;  }
 
         void Load(IDiscoveryContext context);
         void Load(string settingsXml);
@@ -199,6 +200,7 @@ namespace NUnit.VisualStudio.TestAdapter
         public bool UseNUnitIdforTestCaseId { get; private set; }  // default is false.
         public int ConsoleOut { get; private set; }
         public bool StopOnError { get; private set; }
+        public string ReportWriter { get; private set; }
 
 
         public VsTestCategoryType VsTestCategoryType { get; private set; } = VsTestCategoryType.NUnit;
@@ -289,6 +291,9 @@ namespace NUnit.VisualStudio.TestAdapter
             DumpXmlTestDiscovery = GetInnerTextAsBool(nunitNode, nameof(DumpXmlTestDiscovery), false);
             DumpXmlTestResults = GetInnerTextAsBool(nunitNode, nameof(DumpXmlTestResults), false);
             PreFilter = GetInnerTextAsBool(nunitNode, nameof(PreFilter), false);
+            ReportWriter = GetInnerText(nunitNode, nameof(ReportWriter),false) ?? "nunit3";
+
+
             var vsTestCategoryType = GetInnerText(nunitNode, nameof(VsTestCategoryType), Verbosity > 0);
             if (vsTestCategoryType != null)
             {
