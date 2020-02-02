@@ -317,7 +317,7 @@ namespace NUnit.VisualStudio.TestAdapter
             catch (FileNotFoundException ex)
             {
                 // Probably from the GetExportedTypes in NUnit.core, attempting to find an assembly, not a problem if it is not NUnit here
-                TestLog.Warning("   Dependent Assembly " + ex.FileName + " of " + assemblyPath + " not found. Can be ignored if not a NUnit project.");
+                TestLog.Warning("   Dependent Assembly " + ex.FileName + " of " + assemblyPath + " not found. Can be ignored if not an NUnit project.");
             }
             catch (Exception ex)
             {
@@ -349,11 +349,8 @@ namespace NUnit.VisualStudio.TestAdapter
                 return;
 
             string path = Path.Combine(TestOutputXmlFolder, $"{Path.GetFileNameWithoutExtension(assemblyPath)}.xml");
-#if NET35
             var resultService = NUnitEngineAdapter.GetService<IResultService>();
-#else
-            var resultService = new ResultService();
-#endif
+
             // Following null argument should work for nunit3 format. Empty array is OK as well.
             // If you decide to handle other formats in the runsettings, it needs more work.
             //var resultWriter = resultService.GetResultWriter("nunit3",  -t packagenull);
@@ -365,11 +362,7 @@ namespace NUnit.VisualStudio.TestAdapter
 
         private NUnitTestFilterBuilder CreateTestFilterBuilder()
         {
-#if !NET35
-            return new NUnitTestFilterBuilder(new TestFilterService());
-#else
             return new NUnitTestFilterBuilder(NUnitEngineAdapter.GetService<ITestFilterService>());
-#endif
         }
 
 
