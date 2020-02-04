@@ -21,7 +21,7 @@
 // WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 // ***********************************************************************
 
-#define LAUNCHDEBUGGER
+// #define LAUNCHDEBUGGER
 
 using System;
 using System.Collections.Generic;
@@ -353,8 +353,7 @@ namespace NUnit.VisualStudio.TestAdapter
 
             // Following null argument should work for nunit3 format. Empty array is OK as well.
             // If you decide to handle other formats in the runsettings, it needs more work.
-            //var resultWriter = resultService.GetResultWriter("nunit3",  -t packagenull);
-            var formats = resultService.Formats;
+            // var resultWriter = resultService.GetResultWriter("nunit3",  -t packagenull);
             var resultWriter = resultService.GetResultWriter(Settings.ReportWriter, null);
             resultWriter.WriteResultFile(testResults, path);
             TestLog.Info($"   Test results written to {path}");

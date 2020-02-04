@@ -291,7 +291,7 @@ namespace NUnit.VisualStudio.TestAdapter
             DumpXmlTestDiscovery = GetInnerTextAsBool(nunitNode, nameof(DumpXmlTestDiscovery), false);
             DumpXmlTestResults = GetInnerTextAsBool(nunitNode, nameof(DumpXmlTestResults), false);
             PreFilter = GetInnerTextAsBool(nunitNode, nameof(PreFilter), false);
-            ReportWriter = GetInnerText(nunitNode, nameof(ReportWriter),false) ?? "nunit3";
+            ReportWriter = GetInnerText(nunitNode, nameof(ReportWriter), false) ?? "nunit3";
 
 
             var vsTestCategoryType = GetInnerText(nunitNode, nameof(VsTestCategoryType), Verbosity > 0);
