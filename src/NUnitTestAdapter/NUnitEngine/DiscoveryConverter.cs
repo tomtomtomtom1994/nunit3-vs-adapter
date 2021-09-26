@@ -116,9 +116,11 @@ namespace NUnit.VisualStudio.TestAdapter.NUnitEngine
             return explicitCases;
         }
 
+        private readonly Dump.IDumpXml dump;
 
-        public DiscoveryConverter(ITestLogger logger, IAdapterSettings settings)
+        public DiscoveryConverter(ITestLogger logger, IAdapterSettings settings, Dump.IDumpXml dump = null)
         {
+            this.dump = dump;
             Settings = settings;
             TestLog = logger;
         }
@@ -158,13 +160,14 @@ namespace NUnit.VisualStudio.TestAdapter.NUnitEngine
                 var msg = isExplicit ? "Explicit run" : "Non-Explicit run";
                 TestLog.Info(
                     $"   NUnit3TestExecutor discovered {loadedTestCases.Count} of {nunitTestCases.Count} NUnit test cases using Current Discovery mode, {msg}");
+                dump?.AddIsExplicitRunInfo(msg);
             }
 
             timing.LogTime("Converting test cases ");
             return loadedTestCases;
 
             IEnumerable<NUnitDiscoveryTestCase> RunnableTestCases(bool isExplicit) =>
-                isExplicit || !Settings.DesignMode
+                isExplicit
                     ? TestRun.TestAssembly.AllTestCases
                     : TestRun.TestAssembly.RunnableTestCases;
         }

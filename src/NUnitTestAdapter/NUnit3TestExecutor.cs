@@ -142,7 +142,8 @@ namespace NUnit.VisualStudio.TestAdapter
             Unload();
         }
 
-        private void SetRunTypeByStrings() =>
+        private void SetRunTypeByStrings()
+        {
             RunType = !Settings.DesignMode
                 ? Settings.DiscoveryMethod == DiscoveryMethod.Legacy
                     ? RunType.CommandLineLegacy
@@ -150,6 +151,8 @@ namespace NUnit.VisualStudio.TestAdapter
                         ? RunType.CommandLineCurrentNUnit
                         : RunType.CommandLineCurrentVSTest
                 : RunType.Ide;
+            Dump?.AddRunType(RunType);
+        }
 
         /// <summary>
         /// Called by the VisualStudio IDE when selected tests are to be run. Never called from TFS Build.
@@ -261,7 +264,7 @@ namespace NUnit.VisualStudio.TestAdapter
             TestLog.Info(actionText + selectionText + " tests in " + assemblyPath);
             RestoreRandomSeed(assemblyPath);
             Dump = DumpXml.CreateDump(assemblyPath, testCases, Settings);
-
+            Dump?.AddRunType(RunType);
             try
             {
                 var package = CreateTestPackage(assemblyPath, testCases);
@@ -275,7 +278,7 @@ namespace NUnit.VisualStudio.TestAdapter
 
                 if (discoveryResults?.IsRunnable ?? true)
                 {
-                    var discovery = new DiscoveryConverter(TestLog, Settings);
+                    var discovery = new DiscoveryConverter(TestLog, Settings, Dump);
                     discovery.Convert(discoveryResults, assemblyPath);
                     var ea = ExecutionFactory.Create(this);
                     ea.Run(filter, discovery, this);

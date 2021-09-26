@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel;
@@ -44,6 +45,10 @@ namespace NUnit.VisualStudio.TestAdapter.Dump
         void DumpForExecution();
         void DumpVSInputFilter(TestFilter filter, string info);
         void StartExecution(TestFilter filter, string atExecution);
+        void AddIsExplicitRunInfo(string msg);
+        void AddRunType(RunType rt);
+
+        void AddAdapterVersion();
     }
 
     public class DumpXml : IDumpXml
@@ -155,7 +160,7 @@ namespace NUnit.VisualStudio.TestAdapter.Dump
         public void StartDiscoveryInExecution(IGrouping<string, TestCase> testCases, TestFilter filter, TestPackage package)
         {
             DumpFromVSInput(testCases, filter, package);
-            AddString($"<NUnitDiscoveryInExecution>{assemblyPath}</NUnitDiscoveryInExecution>\n\n");
+            AddString($"<NUnitDiscoveryInExecution>{assemblyPath}</NUnitExecution>\n\n");
         }
 
         public void StartExecution(TestFilter filter, string atExecution)
@@ -173,7 +178,25 @@ namespace NUnit.VisualStudio.TestAdapter.Dump
                 ? "<RunningBy>Sources</RunningBy>"
                 : "<RunningBy>TestCases</RunningBy>";
             executionDumpXml.AddString($"\n{runningBy}\n");
+            executionDumpXml.AddAdapterVersion();
             return executionDumpXml;
+        }
+
+        public void AddIsExplicitRunInfo(string msg)
+        {
+            AddString($"\n\n<RunTypeExplicit>{msg}</RunTypeExplicit>\n\n");
+        }
+
+        public void AddRunType(RunType rt)
+        {
+            var msg = rt.ToString();
+            AddString($"\n\n<RunType>{msg}</RunType>\n\n");
+        }
+
+        public void AddAdapterVersion()
+        {
+            var version = Assembly.GetExecutingAssembly().GetName().Version;
+            AddString($"\n\n<AssemblyVersion>{version}</AssemblyVersion>\n\n");
         }
     }
 }
