@@ -33,7 +33,7 @@ namespace NUnit.VisualStudio.TestAdapter
             if (Settings.DiscoveryMethod == DiscoveryMethod.Current)
             {
                 filter = Settings.UseNUnitFilter
-                    ? filterBuilder.ConvertVsTestFilterToNUnitFilter(vsTestFilter)
+                    ? filterBuilder.ConvertVsTestFilterToNUnitFilter(vsTestFilter, discovery)
                     : filterBuilder.ConvertTfsFilterToNUnitFilter(vsTestFilter, discovery);
             }
             else

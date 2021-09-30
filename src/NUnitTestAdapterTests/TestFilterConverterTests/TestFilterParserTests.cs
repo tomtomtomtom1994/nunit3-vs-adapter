@@ -61,6 +61,14 @@ namespace NUnit.VisualStudio.TestAdapter.Tests.TestFilterConverterTests
         [TestCase("Name~SomeTest", "<name re='1'>SomeTest</name>")]
         [TestCase("Name!~SomeTest", "<not><name re='1'>SomeTest</name></not>")]
 
+        // Just partly name
+        [TestCase("SomeTest", "<test re='1'>SomeTest</test>")]
+
+        // Explicit
+        [TestCase("SomeTest & TestCategory=Explicit", "<and><test re='1'>SomeTest</test><cat>Explicit</cat></and>")]
+        [TestCase("SomeTest & Explicit", "<test re='1'>SomeTest</test>")]
+
+
         // FQN - No arguments
         [TestCase(
             "FullyQualifiedName=My.Test.Fixture.Method",

@@ -117,12 +117,9 @@ namespace NUnit.VisualStudio.TestAdapter
             if (RunType == RunType.CommandLineCurrentNUnit)
             {
                 var vsTestFilter = VsTestFilterFactory.CreateVsTestFilter(Settings, runContext);
-                filter = builder.ConvertVsTestFilterToNUnitFilter(vsTestFilter);
+                filter = builder.ConvertVsTestFilterToNUnitFilter(vsTestFilter, true);
             }
-            if (filter == null)
-            {
-                filter = builder.FilterByWhere(Settings.Where);
-            }
+            filter ??= builder.FilterByWhere(Settings.Where);
 
             foreach (string assemblyName in sources)
             {

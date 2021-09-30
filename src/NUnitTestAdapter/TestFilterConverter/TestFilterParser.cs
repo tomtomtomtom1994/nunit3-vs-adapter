@@ -35,23 +35,23 @@ namespace NUnit.VisualStudio.TestAdapter.TestFilterConverter
     {
         private Tokenizer _tokenizer;
 
-        private static readonly Token LPAREN = new (TokenKind.Symbol, "(");
-        private static readonly Token RPAREN = new (TokenKind.Symbol, ")");
-        private static readonly Token AND_OP = new (TokenKind.Symbol, "&");
-        private static readonly Token OR_OP = new (TokenKind.Symbol, "|");
-        private static readonly Token NOT_OP = new (TokenKind.Symbol, "!");
+        private static readonly Token LPAREN = new(TokenKind.Symbol, "(");
+        private static readonly Token RPAREN = new(TokenKind.Symbol, ")");
+        private static readonly Token AND_OP = new(TokenKind.Symbol, "&");
+        private static readonly Token OR_OP = new(TokenKind.Symbol, "|");
+        private static readonly Token NOT_OP = new(TokenKind.Symbol, "!");
 
-        private static readonly Token EQ_OP = new (TokenKind.Symbol, "=");
-        private static readonly Token NE_OP = new (TokenKind.Symbol, "!=");
-        private static readonly Token CONTAINS_OP = new (TokenKind.Symbol, "~");
-        private static readonly Token NOTCONTAINS_OP = new (TokenKind.Symbol, "!~");
+        private static readonly Token EQ_OP = new(TokenKind.Symbol, "=");
+        private static readonly Token NE_OP = new(TokenKind.Symbol, "!=");
+        private static readonly Token CONTAINS_OP = new(TokenKind.Symbol, "~");
+        private static readonly Token NOTCONTAINS_OP = new(TokenKind.Symbol, "!~");
 
         private static readonly Token[] AND_OPS = { AND_OP };
         private static readonly Token[] OR_OPS = { OR_OP };
         private static readonly Token[] EQ_OPS = { EQ_OP };
         private static readonly Token[] REL_OPS = { EQ_OP, NE_OP, CONTAINS_OP, NOTCONTAINS_OP };
 
-        private static readonly Token EOF = new (TokenKind.Eof);
+        private static readonly Token EOF = new(TokenKind.Eof);
 
         public string Parse(string input)
         {
@@ -98,7 +98,7 @@ namespace NUnit.VisualStudio.TestAdapter.TestFilterConverter
         /// </summary>
         public string ParseFilterTerm()
         {
-            var elements = new List<string> { ParseFilterCondition() };
+            var elements = new List<string> { ParseFilterCondition() }.Where(o => o.Length > 0).ToList();
 
             while (LookingAt(AND_OPS))
             {
@@ -119,6 +119,8 @@ namespace NUnit.VisualStudio.TestAdapter.TestFilterConverter
             return sb.ToString();
         }
 
+        public bool HasExplicit { get; private set; }
+
         /// <summary>
         /// Parse a single filter element such as a category expression
         /// and return the xml representation of the filter.
@@ -131,7 +133,14 @@ namespace NUnit.VisualStudio.TestAdapter.TestFilterConverter
             var lhs = Expect(TokenKind.Word);
 
             if (!LookingAt(REL_OPS))
+            {
+                if (lhs.Text == "Explicit")
+                {
+                    HasExplicit = true;
+                    return "";
+                }
                 return EmitFullNameFilter(CONTAINS_OP, lhs.Text);
+            }
 
             var op = Expect(REL_OPS);
             Token rhs;
@@ -150,7 +159,10 @@ namespace NUnit.VisualStudio.TestAdapter.TestFilterConverter
                 case "Name":
                     rhs = Expect(TokenKind.FQN, TokenKind.Word);
                     return EmitNameFilter(op, rhs.Text);
-
+                case "Explicit":
+                    rhs = Expect(TokenKind.FQN, TokenKind.Word);
+                    HasExplicit = rhs.Text.ToLower() != "false";
+                    return "";
                 default:
                     // Assume it's a property name
                     rhs = Expect(TokenKind.String, TokenKind.Word);

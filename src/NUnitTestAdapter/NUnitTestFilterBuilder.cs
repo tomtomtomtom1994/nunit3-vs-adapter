@@ -59,18 +59,22 @@ namespace NUnit.VisualStudio.TestAdapter
                 return ConvertTfsFilterToNUnitFilter(vsFilter, discovery.LoadedTestCases);
             if (!settings.UseNUnitFilter)
                 return ConvertTfsFilterToNUnitFilter(vsFilter, discovery);
-            var result = ConvertVsTestFilterToNUnitFilter(vsFilter);
+            var result = ConvertVsTestFilterToNUnitFilter(vsFilter, discovery.IsExplicitRun);
             if (result == null)
                 return ConvertTfsFilterToNUnitFilter(vsFilter, discovery);
             return result;
         }
 
-        public TestFilter ConvertVsTestFilterToNUnitFilter(IVsTestFilter vsFilter)
+        public TestFilter ConvertVsTestFilterToNUnitFilter(IVsTestFilter vsFilter, bool discoveryIsExplicitRun)
         {
             if (string.IsNullOrEmpty(vsFilter?.TfsTestCaseFilterExpression?.TestCaseFilterValue))
                 return null;
             var parser = new TestFilterParser();
-            var filter = parser.Parse(vsFilter.TfsTestCaseFilterExpression.TestCaseFilterValue);
+            var vsTestFilter = vsFilter.TfsTestCaseFilterExpression.TestCaseFilterValue;
+            var isExplicitInFilter = vsTestFilter.Split(' ', '|', '&', '(', ')', '~', '!', '=').ToList().Any(o => o == "Explicit");
+            if (!discoveryIsExplicitRun && !isExplicitInFilter)
+                vsTestFilter += "&Category!=Explicit";
+            var filter = parser.Parse(vsTestFilter);
             var tf = new TestFilter(filter);
             return tf;
         }
