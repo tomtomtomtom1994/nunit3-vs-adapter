@@ -12,8 +12,8 @@
     <ProjectGuid>{6EC5AB3E-5B45-4E28-ADDD-AA5A2745B9A3}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>NUnit3TestAdapterX64Install</RootNamespace>
-    <AssemblyName>NUnit3TestAdapterX64Install</AssemblyName>
+    <RootNamespace>NUnit3TestAdapterX64</RootNamespace>
+    <AssemblyName>NUnit3TestAdapterX64</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <GeneratePkgDefFile>false</GeneratePkgDefFile>
     <UseCodebase>true</UseCodebase>

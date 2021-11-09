@@ -1,36 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-    <Metadata>
-        <Identity Id="NUnit3TestAdapterX64" Version="4.1.0" Language="en-US" Publisher="Terje Sandstrom " />
-        <DisplayName>NUnit3TestAdapterX64Install</DisplayName>
-        <Description xml:space="preserve">NUnit 3 adapter for running tests in Visual Studio. Works with NUnit 3.x and higher.
+	<Metadata>
+		<Identity Id="NUnit3TestAdapterX64" Version="4.1.0" Language="en-US" Publisher="Terje Sandstrom " />
+		<DisplayName>NUnit 3 Test Adapter x64</DisplayName>
+		<Description xml:space="preserve">NUnit 3 adapter for running tests in Visual Studio. Works with NUnit 3.x and higher.
 This VSIX works with  VS2022.  
 Note that use of VSIX Test adapters are deprecated in VS 2019 and later, we recommend you to use the nuget versions of the adapter. 
 </Description>
-        <MoreInfo>https://docs.nunit.org/articles/vs-test-adapter/Index.html</MoreInfo>
-        <License>license.rtf</License>
-        <Icon>nunit_90.png</Icon>
-        <PreviewImage>preview.png</PreviewImage>
-        <Tags>test, Testing, adapter, NUnit, TDD, NUnit3, UnitTesting</Tags>
-    </Metadata>
-    <Installation>
-        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
-            <ProductArchitecture>amd64</ProductArchitecture>
-        </InstallationTarget>
+		<MoreInfo>https://docs.nunit.org/articles/vs-test-adapter/Index.html</MoreInfo>
+		<License>license.rtf</License>
+		<Icon>nunit_90.png</Icon>
+		<PreviewImage>preview.png</PreviewImage>
+		<Tags>test, Testing, adapter, NUnit, TDD, NUnit3, UnitTesting</Tags>
+		<Preview>true</Preview>
+	</Metadata>
+	<Installation>
+		<InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
+			<ProductArchitecture>amd64</ProductArchitecture>
+		</InstallationTarget>
 		<InstallationTarget Id="Microsoft.VisualStudio.Pro" Version="[17.0, 18.0)">
 			<ProductArchitecture>amd64</ProductArchitecture>
 		</InstallationTarget>
 		<InstallationTarget Id="Microsoft.VisualStudio.Enterprise" Version="[17.0, 18.0)">
 			<ProductArchitecture>amd64</ProductArchitecture>
 		</InstallationTarget>
-    </Installation>
-    <Dependencies>
-        <Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
-    </Dependencies>
-    <Prerequisites>
-        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0,18.0)" DisplayName="Visual Studio core editor" />
-    </Prerequisites>
-    <Assets>
+	</Installation>
+	<Dependencies>
+		<Dependency Id="Microsoft.Framework.NDP" DisplayName="Microsoft .NET Framework" d:Source="Manual" Version="[4.5,)" />
+	</Dependencies>
+	<Prerequisites>
+		<Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[17.0,18.0)" DisplayName="Visual Studio core editor" />
+	</Prerequisites>
+	<Assets>
 		<Asset Type="UnitTestExtension" d:Source="File" Path="NUnit3.TestAdapter.dll" />
-    </Assets>
+	</Assets>
 </PackageManifest>
