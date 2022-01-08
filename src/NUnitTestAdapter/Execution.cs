@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Xml;
+
+using DistributedTestRunner.Agent.Api;
 
 using NUnit.Engine;
 using NUnit.VisualStudio.TestAdapter.Dump;
@@ -48,8 +51,14 @@ namespace NUnit.VisualStudio.TestAdapter
             using var listener = new NUnitEventListener(converter, nUnit3TestExecutor);
             try
             {
-                var results = NUnitEngineAdapter.Run(listener, filter);
-                NUnitEngineAdapter.GenerateTestOutput(results, discovery.AssemblyPath, TestOutputXmlFolder);
+                var client = new TestRunnerClient();
+                var resultsStr = client.RunTests(discovery.AssemblyPath, new TestListenerAdapter(listener));
+                var doc = new XmlDocument();
+                doc.LoadXml(resultsStr);
+                var resultsXml = doc.DocumentElement;
+
+                //var results = NUnitEngineAdapter.Run(listener, filter);
+                NUnitEngineAdapter.GenerateTestOutput(new NUnitResults(resultsXml), discovery.AssemblyPath, TestOutputXmlFolder);
             }
             catch (NullReferenceException)
             {
@@ -58,6 +67,20 @@ namespace NUnit.VisualStudio.TestAdapter
             }
 
             return true;
+        }
+        public class TestListenerAdapter : ITestEventListenerCopied
+        {
+            private readonly ITestEventListener _realListener;
+
+            public TestListenerAdapter(ITestEventListener realListener)
+            {
+                _realListener = realListener;
+            }
+
+            public void OnTestEvent(string report)
+            {
+                _realListener.OnTestEvent(report);
+            }
         }
 
         public abstract TestFilter CheckFilterInCurrentMode(TestFilter filter, IDiscoveryConverter discovery);
