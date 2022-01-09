@@ -57,7 +57,7 @@ namespace NUnit.VisualStudio.TestAdapter
                 doc.LoadXml(resultsStr);
                 var resultsXml = doc.DocumentElement;
 
-                //var results = NUnitEngineAdapter.Run(listener, filter);
+                // var results = NUnitEngineAdapter.Run(listener, filter);
                 NUnitEngineAdapter.GenerateTestOutput(new NUnitResults(resultsXml), discovery.AssemblyPath, TestOutputXmlFolder);
             }
             catch (NullReferenceException)

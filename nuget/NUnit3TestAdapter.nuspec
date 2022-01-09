@@ -3,7 +3,7 @@
     <metadata>
         <id>NUnit3TestAdapter</id>
         <version>$version$</version>
-        <title>NUnit3 Test Adapter for Visual Studio and DotNet</title>
+        <title>Distributed NUnit3 Test Adapter for Visual Studio and DotNet</title>
         <authors>Charlie Poole, Terje Sandstrom</authors>
         <license type="expression">MIT</license>
         <projectUrl>https://docs.nunit.org/articles/vs-test-adapter/Index.html</projectUrl>
