@@ -51,7 +51,7 @@ namespace NUnit.VisualStudio.TestAdapter
             using var listener = new NUnitEventListener(converter, nUnit3TestExecutor);
             try
             {
-                var client = new TestRunnerClient();
+                var client = new TestRunnerClient("http://localhost:5000");
                 var resultsStr = client.RunTests(discovery.AssemblyPath, new TestListenerAdapter(listener));
                 var doc = new XmlDocument();
                 doc.LoadXml(resultsStr);
