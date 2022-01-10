@@ -253,7 +253,8 @@ Task("CreateWorkingImage")
             ADAPTER_BIN_DIR_NET35 + "nunit.engine.dll",
             ADAPTER_BIN_DIR_NET35 + "nunit.engine.api.dll",
             ADAPTER_BIN_DIR_NET35 + "nunit.engine.core.dll",
-            ADAPTER_BIN_DIR_NET35 + "testcentric.engine.metadata.dll"
+            ADAPTER_BIN_DIR_NET35 + "testcentric.engine.metadata.dll",
+            ADAPTER_BIN_DIR_NET35 + "DistributedTestRunner.Agent.Api.dll"
         };
 
         var net35Dir = PACKAGE_IMAGE_DIR + "build/net35";
@@ -286,7 +287,8 @@ Task("PackageNuGet")
         {
             Version = packageVersion,
             BasePath = PACKAGE_IMAGE_DIR,
-            OutputDirectory = PACKAGE_DIR
+            OutputDirectory = PACKAGE_DIR,
+            IncludeReferencedProjects = true
         });
     });
 

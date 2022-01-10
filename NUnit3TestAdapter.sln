@@ -61,7 +61,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		.github\workflows\NUnit3TestAdapter.Cake.CI.yml = .github\workflows\NUnit3TestAdapter.Cake.CI.yml
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DistributedTestRunner.Agent.Api", "..\DistributedTestRunner\DistributedTestRunner.Agent.Api\DistributedTestRunner.Agent.Api.csproj", "{7632D6FD-6079-43B6-894A-3BCA808CAD6C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DistributedTestRunner.Agent.Api", "..\DistributedTestRunner\DistributedTestRunner.Agent.Api\DistributedTestRunner.Agent.Api.csproj", "{534CBCE1-F8A1-4CEB-A0DA-889D7656D412}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,10 +93,10 @@ Global
 		{3FAC7EE0-664F-4B11-918B-8E0FF865EE4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3FAC7EE0-664F-4B11-918B-8E0FF865EE4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3FAC7EE0-664F-4B11-918B-8E0FF865EE4C}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7632D6FD-6079-43B6-894A-3BCA808CAD6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7632D6FD-6079-43B6-894A-3BCA808CAD6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7632D6FD-6079-43B6-894A-3BCA808CAD6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7632D6FD-6079-43B6-894A-3BCA808CAD6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{534CBCE1-F8A1-4CEB-A0DA-889D7656D412}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{534CBCE1-F8A1-4CEB-A0DA-889D7656D412}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{534CBCE1-F8A1-4CEB-A0DA-889D7656D412}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{534CBCE1-F8A1-4CEB-A0DA-889D7656D412}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

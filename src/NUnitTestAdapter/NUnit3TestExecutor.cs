@@ -277,8 +277,11 @@ namespace NUnit.VisualStudio.TestAdapter
 
                 // var discoveryResults = RunType == RunType.CommandLineCurrentNUnit ? null : NUnitEngineAdapter.Explore(filter);
                 var discoveryResults = NUnitEngineAdapter.Explore(filter);
+                if(System.IO.File.Exists(@"D:\debugger.txt"))
+                    Debugger.Launch();
                 Dump?.AddString(discoveryResults?.AsString() ?? " No discovery");
 
+                System.IO.File.AppendAllText(@"D:\discoveryResults.xml", discoveryResults?.AsString());
                 if (discoveryResults?.IsRunnable ?? true)
                 {
                     var discovery = new DiscoveryConverter(TestLog, Settings);

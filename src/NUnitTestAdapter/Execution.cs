@@ -51,14 +51,23 @@ namespace NUnit.VisualStudio.TestAdapter
             using var listener = new NUnitEventListener(converter, nUnit3TestExecutor);
             try
             {
-                var client = new TestRunnerClient("http://localhost:5000");
-                var resultsStr = client.RunTests(discovery.AssemblyPath, new TestListenerAdapter(listener));
-                var doc = new XmlDocument();
-                doc.LoadXml(resultsStr);
-                var resultsXml = doc.DocumentElement;
+                if (!System.IO.File.Exists(@"D:\disable.txt"))
+                {
+                    var results = NUnitEngineAdapter.Run(listener, filter);
+                    System.IO.File.AppendAllText(@"D:\executionResults.xml", results?.AsString());
+                    NUnitEngineAdapter.GenerateTestOutput(results, discovery.AssemblyPath, TestOutputXmlFolder);
+                }
+                else
+                {
+                    var client = new TestRunnerClient("http://localhost:5000");
+                    var resultsStr = client.RunTests(discovery.AssemblyPath, new TestListenerAdapter(listener));
+                    System.IO.File.AppendAllText(@"D:\executionResults.xml", resultsStr);
+                    var doc = new XmlDocument();
+                    doc.LoadXml(resultsStr);
+                    var resultsXml = doc.DocumentElement;
 
-                // var results = NUnitEngineAdapter.Run(listener, filter);
-                NUnitEngineAdapter.GenerateTestOutput(new NUnitResults(resultsXml), discovery.AssemblyPath, TestOutputXmlFolder);
+                    NUnitEngineAdapter.GenerateTestOutput(new NUnitResults(resultsXml), discovery.AssemblyPath, TestOutputXmlFolder);
+                }
             }
             catch (NullReferenceException)
             {

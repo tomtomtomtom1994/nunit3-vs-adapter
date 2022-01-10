@@ -30,6 +30,7 @@
         <file src="build\net35\nunit.engine.dll" target="build\net35\nunit.engine.dll" />
         <file src="build\net35\nunit.engine.api.dll" target="build\net35\nunit.engine.api.dll" />
         <file src="build\net35\nunit.engine.core.dll" target="build\net35\nunit.engine.core.dll" />
+        <file src="build\net35\DistributedTestRunner.Agent.Api.dll" target="build\net35\DistributedTestRunner.Agent.Api.dll" />
         <file src="build\net35\testcentric.engine.metadata.dll" target="build\net35\testcentric.engine.metadata.dll"/>
         <file src="build\net35\NUnit3TestAdapter.props" target="build\net35\NUnit3TestAdapter.props" />
 
@@ -38,6 +39,7 @@
         <file src="build\netcoreapp2.1\nunit.engine.dll" target="build\netcoreapp2.1\nunit.engine.dll" />
         <file src="build\netcoreapp2.1\nunit.engine.api.dll" target="build\netcoreapp2.1\nunit.engine.api.dll" />
         <file src="build\netcoreapp2.1\nunit.engine.core.dll" target="build\netcoreapp2.1\nunit.engine.core.dll" />
+        <file src="build\netcoreapp2.1\DistributedTestRunner.Agent.Api.dll" target="build\netcoreapp2.1\DistributedTestRunner.Agent.Api.dll" />
         <file src="build\netcoreapp2.1\testcentric.engine.metadata.dll" target="build\netcoreapp2.1\testcentric.engine.metadata.dll"/>
         <file src="build\netcoreapp2.1\NUnit3TestAdapter.props" target="build\netcoreapp2.1\NUnit3TestAdapter.props" />
 
