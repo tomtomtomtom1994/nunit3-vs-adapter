@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.SqlTypes;
 using System.Xml;
 
 namespace NUnit.VisualStudio.TestAdapter.NUnitEngine
@@ -19,10 +20,12 @@ namespace NUnit.VisualStudio.TestAdapter.NUnitEngine
         {
             get
             {
-                string rawId = Node.GetAttribute("id");
-                if (!rawId.StartsWith("0-"))
-                    rawId = "0-" + rawId.Substring(2);
-                return rawId;
+                string id = Node.GetAttribute("id");
+                if (id == null)
+                    return id;
+                if (!id.StartsWith("0") && char.IsDigit(id[0]))
+                    id = id.Length > 1 ? "0" + id.Substring(1) : "0";
+                return id;
             }
         }
 

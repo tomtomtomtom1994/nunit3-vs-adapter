@@ -56,6 +56,8 @@ namespace NUnit.VisualStudio.TestAdapter.NUnitEngine
 
         private NUnitDiscoverySuiteBase(string id, string name, string fullname, int count)
         {
+            if (id != null && !id.StartsWith("0") && char.IsDigit(id[0]))
+                id = id.Length > 1 ? "0" + id.Substring(1) : "0";
             Id = id;
             Name = name;
             FullName = fullname;
