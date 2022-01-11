@@ -23,8 +23,8 @@ namespace NUnit.VisualStudio.TestAdapter.NUnitEngine
                 string id = Node.GetAttribute("id");
                 if (id == null)
                     return id;
-                if (!id.StartsWith("0") && char.IsDigit(id[0]))
-                    id = id.Length > 1 ? "0" + id.Substring(1) : "0";
+                if (!id.StartsWith("1") && char.IsDigit(id[0]))
+                    id = id.Length > 1 ? "1" + id.Substring(1) : "1";
                 return id;
             }
         }

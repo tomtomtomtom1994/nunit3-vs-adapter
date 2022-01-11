@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Xml;
 
 using DistributedTestRunner.Agent.Api;
@@ -60,7 +61,8 @@ namespace NUnit.VisualStudio.TestAdapter
                 else
                 {
                     var client = new TestRunnerClient("http://localhost:5000");
-                    var resultsStr = client.RunTests(discovery.AssemblyPath, new TestListenerAdapter(listener));
+                    var testCasesToRun = discovery.LoadedTestCases.Any() ? discovery.LoadedTestCases.Select(t => t.FullyQualifiedName) : null;
+                    var resultsStr = client.RunTests(discovery.AssemblyPath, new TestListenerAdapter(listener), testCasesToRun);
                     System.IO.File.AppendAllText(@"D:\executionResults.xml", resultsStr);
                     var doc = new XmlDocument();
                     doc.LoadXml(resultsStr);
